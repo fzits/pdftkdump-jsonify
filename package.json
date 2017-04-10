@@ -1,0 +1,12 @@
+{
+  "name": "pdftkdump-jsonify",
+  "version": "0.1.0",
+  "description": "Convert pdftk dump_data (or dump_data_utf8) to JSON.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["pdf", "pdftk", "bookmarks"],
+  "author": "Tsukasa Fujisawa",
+  "license": "MIT"
+}
