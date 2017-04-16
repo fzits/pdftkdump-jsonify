@@ -1,1 +1,24 @@
 #!/usr/bin/env node
+
+var path = process.argv[2];
+
+var Jsonify = require('../src/jsonify');
+var j = new Jsonify();
+
+var fs = require('fs'),
+    rl = require('readline');
+
+var inputStream   = fs.createReadStream(path),
+    inputReadLine = rl.createInterface({input: inputStream, 'output': {}});
+
+inputReadLine
+    .on('line', function(line) {
+        j.read(line);
+    })
+    .on('close', function() {
+        try {
+            process.stdout.write(j.write());
+        } catch (e) {
+            process.stderr.write(e.stack);
+        }
+    });
