@@ -1,41 +1,63 @@
-const BEGIN = /^BookmarkBegin$/;
-const TITLE = /(^BookmarkTitle: )(.*$)/;
-const LEVEL = /(^BookmarkLevel: )(.*$)/;
-const PGNUM = /(^BookmarkPageNumber: )(.*$)/;
+const PGNUM = 'NumberOfPages';
+const BM_BEGIN = 'BookmarkBegin';
+const BM_TITLE = 'BookmarkTitle';
+const BM_LEVEL = 'BookmarkLevel';
+const BM_PGNUM = 'BookmarkPageNumber';
 
 class PdftkdumpJsonify {
     constructor() {
-        this.data = [];
+        this.bookmarks = [];
+
+        this.data = {
+            NumberOfPages: 0,
+            bookmarks: []
+        };
+
+        this.regexPageNum = new RegExp(`(^${PGNUM}: )(.*$)`);
+
+        this.regexBM = {
+            begin: new RegExp(`^${BM_BEGIN}$`),
+            title: new RegExp(`(^${BM_TITLE}: )(.*$)`),
+            level: new RegExp(`(^${BM_LEVEL}: )(.*$)`),
+            pgnum: new RegExp(`(^${BM_PGNUM}: )(.*$)`)
+        };
     }
 
     read(line) {
         let str;
 
-        if (BEGIN.test(line)) {
-            this.data.push({});
+        str = this.regexPageNum.exec(line);
+        if (str) {
+            this.data[PGNUM] = str[2];
         }
 
-        str = TITLE.exec(line);
-        if (str) {
-            this.data[this.data.length - 1].title = str[2];
+        if (this.regexBM.begin.test(line)) {
+            this.bookmarks.push({});
         }
 
-        str = LEVEL.exec(line);
+        str = this.regexBM.title.exec(line);
         if (str) {
-            this.data[this.data.length - 1].level = parseInt(str[2], 10);
+            this.bookmarks[this.bookmarks.length - 1][BM_TITLE] = str[2];
         }
 
-        str = PGNUM.exec(line);
+        str = this.regexBM.level.exec(line);
         if (str) {
-            this.data[this.data.length - 1].pageNumber = parseInt(str[2], 10);
+            this.bookmarks[this.bookmarks.length - 1][BM_LEVEL] = parseInt(str[2], 10);
+        }
+
+        str = this.regexBM.pgnum.exec(line);
+        if (str) {
+            this.bookmarks[this.bookmarks.length - 1][BM_PGNUM] = parseInt(str[2], 10);
         }
     }
 
     write() {
-        return JSON.stringify(this.hierarchize(this.data), null, "  ");
+        this.data.bookmarks = this.hierarchizeBookmarks(this.bookmarks);
+
+        return this.data;
     }
 
-    hierarchize(data, lv) {
+    hierarchizeBookmarks(data, lv) {
         let result = [];
         let current;
         let diff;
@@ -43,16 +65,16 @@ class PdftkdumpJsonify {
 
         while (data.length) {
             current = data[0];
-            diff = current.level - lastLv;
+            diff = current[BM_LEVEL] - lastLv;
 
             if (diff == 0) {
                 result.push(data.shift());
             }
 
             if (diff == 1) {
-                result.push(this.hierarchize(data, current.level));
+                result.push(this.hierarchizeBookmarks(data, current[BM_LEVEL]));
 
-                if (data.length > 0 && data[0].level == lastLv) {
+                if (data.length > 0 && data[0][BM_LEVEL] == lastLv) {
                     continue;
                 }
             }
@@ -65,7 +87,7 @@ class PdftkdumpJsonify {
                 throw new Error('Invalid bookmark hierarchy.');
             }
 
-            lastLv = current.level;
+            lastLv = current[BM_LEVEL];
         }
 
         return result;
