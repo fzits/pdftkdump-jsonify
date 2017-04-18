@@ -18,7 +18,7 @@ inputReadLine
     .on('close', function() {
         try {
             let str = j.write();
-            process.stdout.write(JSON.stringify(str, null, '  '));
+            process.stdout.write(JSON.stringify(str, null, '    '));
         } catch (e) {
             process.stderr.write(e.stack);
         }
