@@ -1,0 +1,65 @@
+InfoBegin
+InfoKey: ModDate
+InfoValue: D:20170101010000-04'00'
+InfoBegin
+InfoKey: CreationDate
+InfoValue: D:20170102010000-04'00'
+PdfID0: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+PdfID1: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+NumberOfPages: 24
+BookmarkBegin
+BookmarkTitle: 1
+BookmarkLevel: 1
+BookmarkPageNumber: 1
+BookmarkBegin
+BookmarkTitle: 2
+BookmarkLevel: 1
+BookmarkPageNumber: 2
+BookmarkBegin
+BookmarkTitle: 2-1
+BookmarkLevel: 2
+BookmarkPageNumber: 3
+BookmarkBegin
+BookmarkTitle: 2-2
+BookmarkLevel: 2
+BookmarkPageNumber: 5
+BookmarkBegin
+BookmarkTitle: 2-2-1
+BookmarkLevel: 3
+BookmarkPageNumber: 7
+BookmarkBegin
+BookmarkTitle: 2-2-2
+BookmarkLevel: 3
+BookmarkPageNumber: 9
+BookmarkBegin
+BookmarkTitle: 2-2-2-1
+BookmarkLevel: 4
+BookmarkPageNumber: 9
+BookmarkBegin
+BookmarkTitle: 2-2-2-2
+BookmarkLevel: 4
+BookmarkPageNumber: 9
+BookmarkBegin
+BookmarkTitle: 2-3
+BookmarkLevel: 2
+BookmarkPageNumber: 12
+BookmarkBegin
+BookmarkTitle: 2-4
+BookmarkLevel: 2
+BookmarkPageNumber: 12
+BookmarkBegin
+BookmarkTitle: 3
+BookmarkLevel: 1
+BookmarkPageNumber: 13
+BookmarkBegin
+BookmarkTitle: 3-1
+BookmarkLevel: 2
+BookmarkPageNumber: 15
+BookmarkBegin
+BookmarkTitle: 3-1-1
+BookmarkLevel: 3
+BookmarkPageNumber: 17
+BookmarkBegin
+BookmarkTitle: 4
+BookmarkLevel: 1
+BookmarkPageNumber: 20
